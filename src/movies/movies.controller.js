@@ -11,6 +11,8 @@ const movieExists = async (req, res, next) => {
 	return next({ status: 404, message: `Movie cannot be found.` });
 };
 
+////////////////////////////////////////////////////////////////////////////////
+
 const list = async (req, res) => {
 	const { is_showing } = req.query;
 	const data = await service.list();

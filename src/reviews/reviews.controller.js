@@ -15,6 +15,8 @@ const reviewExists = async (req, res, next) => {
 	});
 };
 
+////////////////////////////////////////////////////////////////////////////////
+
 const destroy = async (req, res) => {
 	const { review } = res.locals;
 	await service.delete(review.review_id);
