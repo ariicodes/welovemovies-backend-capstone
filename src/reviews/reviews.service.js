@@ -8,11 +8,11 @@ const destroy = reviewId => {
 	return knex('reviews').where({ review_id: reviewId }).del();
 };
 
-const update = (reviewId, updatedReview) => {
+const update = updatedReview => {
 	return knex('reviews')
-		.where({ review_id: reviewId })
+		.where({ review_id: updatedReview.review_id })
 		.update(updatedReview, '*')
-		.then(updatedRecords => updatedRecords[0]);
+		.then(updatedReview => updatedReview[0]);
 };
 
 const getCriticById = criticId => {

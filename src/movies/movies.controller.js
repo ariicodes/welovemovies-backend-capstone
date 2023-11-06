@@ -11,12 +11,13 @@ const movieExists = async (req, res, next) => {
 	return next({ status: 404, message: `Movie cannot be found.` });
 };
 
-////////////////////////////////
-
 const list = async (req, res) => {
 	const { is_showing } = req.query;
-	const data = await service.list(is_showing);
-	res.json({ data });
+	const data = await service.list();
+
+	is_showing
+		? res.json({ data: await service.listMoviesCurrentlyShowing() })
+		: res.json({ data });
 };
 
 const read = async (req, res) => {

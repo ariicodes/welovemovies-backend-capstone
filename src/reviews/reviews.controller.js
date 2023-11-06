@@ -26,14 +26,13 @@ const update = async (req, res) => {
 
 	const updatedReview = {
 		...review,
-		...req.body,
-		review_id: review.review_id,
+		...req.body.data,
 	};
 
-	const updatedData = await service.update(review.review_id, updatedReview);
-	const critic = await service.getCriticById(updatedData.critic_id);
+	await service.update(updatedReview);
+	const critic = await service.getCriticById(updatedReview.critic_id);
 
-	res.json({ data: { ...updatedData, critic } });
+	res.json({ data: { ...updatedReview, critic } });
 };
 
 module.exports = {

@@ -10,14 +10,16 @@ const addCritic = mapProperties({
 	updated_at: 'critic.updated_at',
 });
 
-const list = isShowing => {
-	return isShowing === true
-		? knex('movies as m')
-				.select('m.*')
-				.join('movies_theaters as mt', 'm.movie_id', 'mt.movie_id')
-				.where({ 'mt.is_showing': isShowing })
-				.first()
-		: knex('movies').select('*');
+const list = () => {
+	return knex('movies').select('*');
+};
+
+const listMoviesCurrentlyShowing = () => {
+	return knex('movies as m')
+		.distinct()
+		.join('movies_theaters as mt', 'm.movie_id', 'mt.movie_id')
+		.select('m.*')
+		.where({ 'mt.is_showing': true });
 };
 
 const read = movieId => {
@@ -43,6 +45,7 @@ const listMovieReviews = movieId => {
 
 module.exports = {
 	list,
+	listMoviesCurrentlyShowing,
 	read,
 	listMovieTheaters,
 	listMovieReviews,
