@@ -10,7 +10,7 @@ const addCritic = mapProperties({
 	updated_at: 'critic.updated_at',
 });
 
-function list(isShowing) {
+const list = isShowing => {
 	return isShowing === true
 		? knex('movies as m')
 				.select('m.*')
@@ -18,20 +18,20 @@ function list(isShowing) {
 				.where({ 'mt.is_showing': isShowing })
 				.first()
 		: knex('movies').select('*');
-}
+};
 
-function read(movieId) {
+const read = movieId => {
 	return knex('movies').select('*').where({ movie_id: movieId }).first();
-}
+};
 
-function listMovieTheaters(movieId) {
+const listMovieTheaters = movieId => {
 	return knex('theaters as t')
 		.join('movies_theaters as mt', 't.theater_id', 'mt.theater_id')
 		.select('t.*', 'mt.is_showing', 'mt.movie_id')
 		.where({ 'mt.movie_id': movieId, 'mt.is_showing': true });
-}
+};
 
-function listMovieReviews(movieId) {
+const listMovieReviews = movieId => {
 	return knex('reviews as r')
 		.join('critics as c', 'c.critic_id', 'r.critic_id')
 		.select('r.*', 'c.*')
@@ -39,7 +39,7 @@ function listMovieReviews(movieId) {
 		.then(reviews => {
 			return reviews.map(review => addCritic(review));
 		});
-}
+};
 
 module.exports = {
 	list,
