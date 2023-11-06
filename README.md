@@ -17,7 +17,7 @@ The WeLoveMovies Capstone Project involves setting up a database and building sp
 1. Clone this repository.
 2. Navigate to the project directory.
 3. Run the following command to install dependencies: `npm install`
-4. Start the server: `npm run start`
+4. Start the server: `npm start`
 
 
 ## Usage
