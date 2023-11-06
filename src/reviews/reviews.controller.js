@@ -23,17 +23,15 @@ const destroy = async (req, res) => {
 
 const update = async (req, res) => {
 	const { review } = res.locals;
-	const { reviewId } = req.params;
-	const { score, content } = req.body;
+
 	const updatedReview = {
 		...review,
-		score: score,
-		content: content,
-		review_id: reviewId,
+		...req.body,
+		review_id: review.review_id,
 	};
 
-	const updatedData = await service.update(updatedReview);
-	const critic = await service.getCriticById(updatedReview.critic_id);
+	const updatedData = await service.update(review.review_id, updatedReview);
+	const critic = await service.getCriticById(updatedData.critic_id);
 
 	res.json({ data: { ...updatedData, critic } });
 };
